@@ -231,7 +231,7 @@ class UniqloStockChecker extends TimerTask {
         try {
             response = client.send(request, HttpResponse.BodyHandlers.ofString());
             System.out.println(response.body());
-            return !response.body().contains("Coming Soon");
+            return response.body().contains("Coming Soon");
         } catch (Exception e) {
             System.out.println("> ERROR");
             return false;
