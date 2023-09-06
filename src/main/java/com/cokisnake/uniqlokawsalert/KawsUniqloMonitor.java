@@ -230,7 +230,7 @@ class UniqloStockChecker extends TimerTask {
         HttpResponse<String> response = null;
         try {
             response = client.send(request, HttpResponse.BodyHandlers.ofString());
-            System.out.println(response.body());
+            System.out.println("> DROP ONLINE: " + !response.body().contains("Coming Soon"));
             return !response.body().contains("Coming Soon");
         } catch (Exception e) {
             System.out.println("> ERROR");
@@ -248,7 +248,7 @@ class UniqloStockChecker extends TimerTask {
                 .build();
         try {
             HttpResponse<String> webhookResponse = client.send(webhook, HttpResponse.BodyHandlers.ofString());
-            System.out.println(webhookResponse.body());
+            System.out.println("> PING SENT");
         } catch (IOException | InterruptedException e) {
             throw new RuntimeException(e);
         }
