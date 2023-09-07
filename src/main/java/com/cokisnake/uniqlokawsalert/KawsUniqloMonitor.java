@@ -18,7 +18,7 @@ public class KawsUniqloMonitor {
     @PostConstruct
     public void init() {
         Timer timer = new Timer();
-        timer.schedule(new UniqloStockChecker(), 0, 5000);
+        timer.schedule(new UniqloStockChecker(), 0, 10000);
     }
 }
 
@@ -206,7 +206,7 @@ class UniqloStockChecker extends TimerTask {
 
     private String mention = "{ \n" +
             "  \"username\":\"uniqlo-kaws-alert\",\n" +
-            "  \"content\": \"@everyone\",\n" +
+            "  \"content\": \"RESTOCK UNIQLO @everyone\",\n" +
             "  \"embeds\": null,\n" +
             "  \"attachments\": []\n" +
             "}";
@@ -230,8 +230,9 @@ class UniqloStockChecker extends TimerTask {
         HttpResponse<String> response = null;
         try {
             response = client.send(request, HttpResponse.BodyHandlers.ofString());
-            System.out.println("> DROP ONLINE: " + !response.body().contains("Coming Soon"));
-            return !response.body().contains("Coming Soon");
+            System.out.println("> STOCK AVAILABLE: " + response.body().contains("\"IN_STOCK\": 1"));
+            System.out.println("> STOCK NOT AVAILABLE: " + response.body().contains("\"IN_STOCK\": 0"));
+            return response.body().contains("\"IN_STOCK\": 1");
         } catch (Exception e) {
             System.out.println("> ERROR");
             return false;
@@ -255,7 +256,7 @@ class UniqloStockChecker extends TimerTask {
     }
 
     public void run() {
-        System.out.println("> KAWS MONITOR STARTED <");
+        System.out.println("> KAWS MONITOR CHECK STARTED...");
 
         if (checkAvailable()) {
             // send webhook
@@ -267,9 +268,9 @@ class UniqloStockChecker extends TimerTask {
             sendDiscordMessage(hoodie2);
             sendDiscordMessage(mention);
 
+            System.out.println("> KAWS MONITOR MONITOR ENDED...");
             System.exit(1);
         }
 
-        System.out.println("> KAWS MONITOR ENDED <");
     }
 }
