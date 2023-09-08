@@ -213,7 +213,7 @@ class UniqloStockChecker extends TimerTask {
 
     private boolean checkAvailable() {
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create("https://www.uniqlo.com/on/demandware.store/Sites-EU-Site/en/Product-GetVariants?pid=467525&Quantity=1"))
+                .uri(URI.create("https://www.uniqlo.com/on/demandware.store/Sites-EU-Site/en/Product-GetVariants?pid=467774&Quantity=1"))
                 .GET()
                 .setHeader("Accept", "*/*")
                 .setHeader("Accept-Language", "en-US,en;q=0.9")
