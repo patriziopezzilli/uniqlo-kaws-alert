@@ -232,7 +232,7 @@ class UniqloStockChecker extends TimerTask {
             response = client.send(request, HttpResponse.BodyHandlers.ofString());
             System.out.println("> STOCK AVAILABLE: " + response.body().contains("\"IN_STOCK\": 1"));
             System.out.println("> STOCK NOT AVAILABLE: " + response.body().contains("\"IN_STOCK\": 0"));
-            return (response.body().contains("\"IN_STOCK\": 1") && (response.body().contains("\"lowInStock\": false"));
+            return (response.body().contains("\"IN_STOCK\": 1") && response.body().contains("\"lowInStock\": false"));
         } catch (Exception e) {
             System.out.println("> ERROR");
             return false;
