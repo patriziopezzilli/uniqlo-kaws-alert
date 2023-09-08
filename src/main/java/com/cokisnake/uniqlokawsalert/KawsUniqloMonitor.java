@@ -260,14 +260,8 @@ class UniqloStockChecker extends TimerTask {
 
         if (checkAvailable()) {
             // send webhook
-            sendDiscordMessage(artBook);
-            sendDiscordMessage(tee1);
             sendDiscordMessage(tee2);
-            sendDiscordMessage(tee3);
-            sendDiscordMessage(hoodie1);
-            sendDiscordMessage(hoodie2);
-            sendDiscordMessage(mention);
-
+            
             System.out.println("> KAWS MONITOR MONITOR ENDED...");
             System.exit(1);
         }
